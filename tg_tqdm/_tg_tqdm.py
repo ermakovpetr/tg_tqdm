@@ -20,7 +20,7 @@ class _TelegramIO():
         if self.prev_text != self.text:
             if '%' in self.text:
                 self.bot.editMessageText((self.chat_id, self.message_id), self.text +
-                                         '\nLast update: {}'.format(datetime.now()) if self.show_last_update else '')
+                                         '\nLast update: {}'.format(datetime.now()) if self.show_last_update else self.text)
                 self.prev_text = self.text
 
 
