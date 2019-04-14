@@ -24,7 +24,7 @@ class _TelegramIO():
                 self.prev_text = self.text
 
 
-def tg_tqdm(iterable, token, chat_id, show_last_update=True,
+def tg_tqdm(token, chat_id, iterable=None, show_last_update=True,
             desc=None, total=None, leave=True, ncols=None, mininterval=1.0, maxinterval=10.0,
             miniters=None, ascii=False, disable=False, unit='it',
             unit_scale=False, dynamic_ncols=False, smoothing=0.3,
@@ -37,14 +37,15 @@ def tg_tqdm(iterable, token, chat_id, show_last_update=True,
     
         Parameters
         ----------
-        iterable  : iterable, required
-            Iterable to decorate with a progressbar.
-            Leave blank to manually manage the updates.
         token  : string, required
             Token of your telegram bot
             
         chat_id  : int, required
             Chat ID where information will be sent about the progress
+        
+        iterable  : iterable, optional
+            Iterable to decorate with a progressbar.
+            Leave blank to manually manage the updates.
             
         show_last_update  : bool, optional [default: True]
             Should I show the time-date of the last change in the progress bar?
