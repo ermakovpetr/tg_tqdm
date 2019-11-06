@@ -4,11 +4,14 @@ from datetime import datetime
 
 
 class _TelegramIO():
-    def __init__(self, token, chat_id, show_last_update=True):
+    def __init__(self, token, chat_id, message_id=None, show_last_update=True):
         self.bot = telepot.Bot(token)
         self.chat_id = chat_id
         self.text = self.prev_text = '<< Init tg_tqdm bar >>'
-        self.message_id = self.bot.sendMessage(chat_id, self.text)['message_id']
+        if message_id is None:
+            self.message_id = self.bot.sendMessage(chat_id, self.text)['message_id']
+        else:
+            self.message_id = message_id
         self.show_last_update = show_last_update
 
     def write(self, s):
@@ -24,7 +27,7 @@ class _TelegramIO():
                 self.prev_text = self.text
 
 
-def tg_tqdm(iterable, token, chat_id, show_last_update=True,
+def tg_tqdm(iterable, token, chat_id, message_id=None, show_last_update=True,
             desc=None, total=None, leave=True, ncols=None, mininterval=1.0, maxinterval=10.0,
             miniters=None, ascii=False, disable=False, unit='it',
             unit_scale=False, dynamic_ncols=False, smoothing=0.3,
@@ -53,7 +56,7 @@ def tg_tqdm(iterable, token, chat_id, show_last_update=True,
             Like in tqdm
             
     """
-    tg_io = _TelegramIO(token, chat_id, show_last_update)
+    tg_io = _TelegramIO(token, chat_id, message_id, show_last_update)
     return tqdm(iterable=iterable,
                 desc=desc,
                 total=total,
