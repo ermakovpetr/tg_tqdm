@@ -9,7 +9,7 @@ class _TelegramIO():
         self.chat_id = chat_id
         self.text = self.prev_text = '<< Init tg_tqdm bar >>'
         if message_id is None:
-            self.message_id = self.bot.sendMessage(chat_id, self.text)['message_id']
+            self.message_id = self.bot.sendMessage(chat_id, self.text, parse_mode='HTML')['message_id']
         else:
             self.message_id = message_id
         self.show_last_update = show_last_update
@@ -23,7 +23,8 @@ class _TelegramIO():
         if self.prev_text != self.text:
             if '%' in self.text:
                 self.bot.editMessageText((self.chat_id, self.message_id), self.text +
-                                         '\nLast update: {}'.format(datetime.now()) if self.show_last_update else self.text)
+                                         '\nLast update: {}'.format(datetime.now()) if self.show_last_update else self.text,
+                                         parse_mode='HTML')
                 self.prev_text = self.text
 
 
